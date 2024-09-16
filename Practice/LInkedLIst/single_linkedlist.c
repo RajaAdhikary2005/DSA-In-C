@@ -18,7 +18,7 @@ void length_of_the_linkedlist();
 void Search_an_Element();
 void display();
 void display_in_reverse();
-void reverse_the_linkedlis();
+void reverse_the_linkedlist();
 int main()
 {
     int choice;
@@ -179,4 +179,303 @@ void insert_at_any_position()
     temp->next=new;
     }
     }
+}
+void insert_after_an_element()
+{
+    int n;
+    printf("Enter the value after which you want to insert an element: ");
+    scanf("%d",&n);
+
+    if (head == NULL) 
+    {
+        printf("The list is empty.\n");
+        return;
+    }
+    int flag=0;
+    temp=head;
+    while(temp->next!=NULL)
+    {
+        if(temp->data==n)
+    {
+        flag=1;
+        break;
+    }
+        else
+        {
+            temp=temp->next;
+        }
+    }
+    if(flag==0)
+    {
+        printf("Wrong Input");
+    }
+    else
+    {
+    new=(struct node *)malloc(sizeof(struct node));
+    if(new==NULL)
+    {
+        printf("Memory Allocation Failed");
+        return ;
+    }
+    else
+    {
+        printf("Enter the element to insert: ");
+        scanf("%d",&new->data);
+    }
+    new->next=temp->next;
+    temp->next=new;
+    }
+}
+void insert_before_an_element()
+{
+    struct node *p=NULL;
+    int n;
+    printf("Enter the value before which you want to insert an element: ");
+    scanf("%d",&n);
+
+    if (head == NULL) 
+    {
+        printf("The list is empty.\n");
+        return;
+    }
+    int flag=0;
+    temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==n)
+    {
+        flag=1;
+        break;
+    }
+        else
+        {   
+            p=temp;
+            temp=temp->next;
+        }
+    }
+    if(flag==0)
+    {
+        printf("Wrong Input");
+    }
+    else if(p==NULL)
+    {
+        insert_at_begining();
+    }
+    else
+    {
+    new=(struct node *)malloc(sizeof(struct node));
+    if(new==NULL)
+    {
+        printf("Memory Allocation Failed");
+        return ;
+    }
+    else
+    {
+        printf("Enter the element to insert: ");
+        scanf("%d",&new->data);
+    }
+    new->next=p->next;
+    p->next=new;
+    }
+}
+void delete_at_begining()
+{
+    if(head==NULL)
+    {
+        printf("Empty List");
+        return ;
+    }
+    else
+    {
+        head=temp;
+        head=temp->next;
+        free(temp);
+        printf("One Element Deleted");
+    }
+}
+void delete_at_end()
+{  
+    if(head==NULL)
+    {
+        printf("Empty List");
+        return;
+    }
+    else
+    {
+    head=temp;
+    struct node *p=NULL;
+    while (temp->next!=NULL)
+    { 
+        p=temp;
+        temp=temp->next;
+    }
+    if(head==temp)
+    {
+        head=NULL;
+        free(temp);
+    }
+    else
+    {
+        p->next=NULL;
+        free(temp);
+        printf("One Element Deleted");
+    }
+}
+}
+void delete_at_any_position()
+{
+    if (head == NULL) 
+    {
+        printf("The list is empty.\n");
+        return;
+    }
+    else
+    {
+    int n,count=1,i=1;
+    temp=head;
+    while (temp->next!=NULL)
+    {
+        temp=temp->next;
+        count++;
+    }
+    printf("Enter the position to where you want to delete an element");
+    scanf("%d",&n);
+    if(n<1 || n>=count)
+    {
+        printf("wrong Position");
+    }
+    else if(n==1)
+    {
+        delete_at_begining();
+    }
+    else
+    {
+    while (i<n)
+    { 
+        p=temp;
+        temp=temp->next;
+        i++;
+    }
+    p->next=temp->next;
+    free(temp);
+    printf("One Item Deleted");
+    }
+    }
+}
+void delete_any_element()
+{
+ if (head == NULL) 
+    {
+        printf("The list is empty.\n");
+        return;
+    }
+    else
+    {
+    struct node *p=NULL;
+    int n;
+    printf("Enter the element which you want to delete: ");
+    scanf("%d",&n);
+    int flag=0;
+    temp=head;
+    while(temp!=NULL)
+    {
+        if(temp->data==n)
+    {
+        flag=1;
+        break;
+    }
+        else
+        {p=temp;  
+        temp=temp->next;
+        }
+    }
+    if(flag==0)
+    {
+        printf("Wrong Input");
+    }
+
+    else
+    {   if (head->next==NULL)
+        {
+            head=NULL;
+            free(temp);
+            printf("One item Deleted");          
+        }
+        else
+        {
+            p->next=temp->next;
+            free(temp);
+            printf("One item Deleted");
+        }
+    }
+    }   
+}
+void length_of_the_linkedlist()
+{   if(head==NULL)
+    {
+        printf("The linked list is empty");
+    }  
+    else
+    {
+    int count=1;
+    temp=head;
+    while (temp->next!=NULL)
+    {
+        count++;
+        temp=temp->next;
+    }
+    printf("There are %d elements in the linked list",count);
+    } 
+}
+void Search_an_Element()
+{
+    temp=head;
+    if(head==NULL)
+    {
+        printf("Empty List");
+    }
+    else
+    {
+        int n,flag=0,i=1;
+        printf("Enter  a element to search: ");
+        scanf("%d",&n);
+        while(temp!=NULL)
+        {
+            if(temp->data==n)
+            {
+                flag=1;
+                printf("The Element is found at %d position",i);
+                break;
+                return ;
+            }
+            else
+            {
+                temp=temp->next;
+                i++;
+            }
+        }
+        if(flag==0)
+        {
+            printf("The item is not found");
+        }
+    }
+}
+void display()
+{
+    if(head==NULL)
+    {
+        printf("Empty List");
+    }
+    else
+    {
+        while (temp!=NULL)
+        {
+            printf("%d -> ",temp->data);
+            temp=temp->next;
+        }
+    }
+}
+void display_in_reverse()
+{
+
 }
