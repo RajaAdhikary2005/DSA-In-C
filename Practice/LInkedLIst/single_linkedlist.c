@@ -4,7 +4,7 @@ typedef struct linkedlist{
     int data;
     struct linkedlist *next;
 }node;
-struct node *head=NULL , *temp , *new ;
+node *head=NULL , *temp , *new ;
 void insert_at_begining();
 void insert_at_end();
 void insert_at_any_position();
@@ -17,12 +17,11 @@ void delete_any_element();
 void length_of_the_linkedlist();
 void Search_an_Element();
 void display();
-void display_in_reverse();
+void display_in_reverse(node *head);
 void reverse_the_linkedlist();
 int main()
 {
     int choice;
-
     while(1)
     {
         printf("\n 1.insert at begining\n 2.insert at end\n 3.insert at any position\n 4.insert after an element\n 5.insert before an element\n 6.Delete at begining\n 7.Delete at end\n 8.Delete at any position\n 9.Delete any Element\n 10.Length of the linkedlist\n 11.Search an Element\n 12.Display\n 13.Display in reveerse\n 14.Reverse the linkedlist\n 15.Exit");
@@ -67,10 +66,10 @@ int main()
             display();
             break;
         case 13:
-           display_in_reverse();
+           display_in_reverse(head);
             break;
         case 14:
-            reverse_the_linkedlis();
+            reverse_the_linkedlist();
             break;
         case 15:
             exit(0);
@@ -83,7 +82,7 @@ int main()
 }
 void insert_at_begining()
 {
-    new=(struct node *)malloc(sizeof(struct node));
+    new=(node *)malloc(sizeof(node));
     if(new==NULL)
     {
         printf("Memory Allocation Failed");
@@ -107,7 +106,7 @@ void insert_at_begining()
 }
 void insert_at_end()
 {
-    new=(struct node *)malloc(sizeof(struct node));
+    new=(node *)malloc(sizeof(node));
     if(new==NULL)
     {
         printf("Memory Allocation Failed");
@@ -149,7 +148,7 @@ void insert_at_any_position()
     }
     else
     {
-    new=(struct node *)malloc(sizeof(struct node));
+    new=(node *)malloc(sizeof(node));
     if(new==NULL)
     {
         printf("Memory Allocation Failed");
@@ -211,7 +210,7 @@ void insert_after_an_element()
     }
     else
     {
-    new=(struct node *)malloc(sizeof(struct node));
+    new=(node *)malloc(sizeof(node));
     if(new==NULL)
     {
         printf("Memory Allocation Failed");
@@ -228,7 +227,7 @@ void insert_after_an_element()
 }
 void insert_before_an_element()
 {
-    struct node *p=NULL;
+    node *p=NULL;
     int n;
     printf("Enter the value before which you want to insert an element: ");
     scanf("%d",&n);
@@ -263,7 +262,7 @@ void insert_before_an_element()
     }
     else
     {
-    new=(struct node *)malloc(sizeof(struct node));
+    new=(node *)malloc(sizeof(node));
     if(new==NULL)
     {
         printf("Memory Allocation Failed");
@@ -303,7 +302,7 @@ void delete_at_end()
     else
     {
     head=temp;
-    struct node *p=NULL;
+    node *p=NULL;
     while (temp->next!=NULL)
     { 
         p=temp;
@@ -331,6 +330,7 @@ void delete_at_any_position()
     }
     else
     {
+    node *p;
     int n,count=1,i=1;
     temp=head;
     while (temp->next!=NULL)
@@ -371,7 +371,7 @@ void delete_any_element()
     }
     else
     {
-    struct node *p=NULL;
+    node *p=NULL;
     int n;
     printf("Enter the element which you want to delete: ");
     scanf("%d",&n);
@@ -467,7 +467,8 @@ void display()
         printf("Empty List");
     }
     else
-    {
+    {   temp=head;
+
         while (temp!=NULL)
         {
             printf("%d -> ",temp->data);
@@ -475,7 +476,43 @@ void display()
         }
     }
 }
-void display_in_reverse()
+void display_in_reverse(node *p1)
 {
-
-}
+    if(head==NULL)
+    {
+        printf("Empty List");
+    }
+    else
+    {
+    if (p1==NULL)
+    {
+        return ;
+    }
+    else
+    {
+        return display_in_reverse(p1->next);
+        printf("%d -> ",p1->data);
+    }
+    }
+    }
+    void reverse_the_linkedlist()
+    {
+    if(head==NULL)
+    {
+        printf("Empty List");
+    }
+    else
+    {
+        node *p0=NULL;
+        node *p2=head;
+        node *p1=head;
+        while(p2!=NULL)
+        {
+            p2=p2->next;
+            p1->next=p0;
+            p0=p1;
+            p1=p2;
+        }
+        head=p0;
+    }
+    }
