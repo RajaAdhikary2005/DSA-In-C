@@ -135,16 +135,16 @@ void insert_at_end()
 void insert_at_any_position()
 {   int n,count=1,i;
     temp=head;
-    while (temp->next!=NULL)
+    while (temp!=NULL)
     {
         temp=temp->next;
         count++;
     }
     printf("Enter the position to where you want to insert an element");
     scanf("%d",&n);
-    if(n>=count)
+    if(n<1 || n>=count+1)
     {
-        printf("wrong Position");
+        printf("Wrong Position");
     }
     else
     {
@@ -163,14 +163,14 @@ void insert_at_any_position()
     {
     insert_at_begining();
     }
-    else if(n==count+1)
+    else if(n==count)
     {
     insert_at_end();           
     } 
     else
     {
     temp=head;
-    for(i=1;i<n;i++)
+    for(i=1;i<n-1;i++)
     {
         temp=temp->next;
     }
@@ -286,10 +286,11 @@ void delete_at_begining()
     }
     else
     {
-        head=temp;
+        temp=head;
         head=temp->next;
         free(temp);
         printf("One Element Deleted");
+        
     }
 }
 void delete_at_end()
@@ -301,7 +302,7 @@ void delete_at_end()
     }
     else
     {
-    head=temp;
+    temp=head;
     node *p=NULL;
     while (temp->next!=NULL)
     { 
@@ -312,6 +313,7 @@ void delete_at_end()
     {
         head=NULL;
         free(temp);
+        printf("One Element Deleted");
     }
     else
     {
@@ -330,26 +332,28 @@ void delete_at_any_position()
     }
     else
     {
-    node *p;
-    int n,count=1,i=1;
+    node *p=NULL;
+    int n,count=0,i=1;
     temp=head;
-    while (temp->next!=NULL)
+    while (temp!=NULL)
     {
         temp=temp->next;
         count++;
     }
-    printf("Enter the position to where you want to delete an element");
+    printf("Enter the position to where you want to delete an element ");
     scanf("%d",&n);
     if(n<1 || n>=count)
     {
-        printf("wrong Position");
+        printf("Wrong Position");
     }
     else if(n==1)
     {
         delete_at_begining();
+        return ;
     }
     else
     {
+    temp=head;
     while (i<n)
     { 
         p=temp;
@@ -391,24 +395,22 @@ void delete_any_element()
     }
     if(flag==0)
     {
-        printf("Wrong Input");
+        printf("Element Not Found");
     }
 
     else
-    {   if (head->next==NULL)
+    {   if (p==NULL)
         {
-            head=NULL;
-            free(temp);
-            printf("One item Deleted");          
+            head=head->next;
+        
         }
         else
         {
             p->next=temp->next;
+        }   
             free(temp);
             printf("One item Deleted");
-        }
-    }
-    }   
+        } }  
 }
 void length_of_the_linkedlist()
 {   if(head==NULL)
@@ -470,11 +472,17 @@ void display()
     {   temp=head;
 
         while (temp!=NULL)
+        {if(temp->next==NULL)
+        {
+            printf("%d ",temp->data);
+        }
+        else
         {
             printf("%d -> ",temp->data);
-            temp=temp->next;
+        
         }
-    }
+            temp=temp->next;
+    }}
 }
 void display_in_reverse(node *p1)
 {
@@ -490,8 +498,12 @@ void display_in_reverse(node *p1)
     }
     else
     {
-        return display_in_reverse(p1->next);
-        printf("%d -> ",p1->data);
+        display_in_reverse(p1->next);
+        printf("%d ",p1->data);
+        if(p1 !=head)
+        {
+            printf("-> ");
+        }
     }
     }
     }
