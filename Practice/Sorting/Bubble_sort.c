@@ -1,11 +1,13 @@
 #include<stdio.h>
+#define max 1000
 void print_array(int a[],int n);
 void bubble_sort(int a[],int n);
 int main()
 {
-    int a[100],n;
+    int a[max],n;
     printf("Enter the limit: ");
     scanf("%d",&n);
+    printf("Enter the elements: \n");
     for(int i=0;i<n;i++)
     {
         scanf("%d",&a[i]);
